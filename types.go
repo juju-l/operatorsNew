@@ -7,13 +7,13 @@ type HlmSpec struct {
 			StsSingle bool `yaml:"stsSingle,omitempty"`
 			Application string `yaml:"application,omitempty"`
 			Cloudns string `yaml:"cloudns,omitempty"`
-			Helmv3tpl *map[string]map[string]Releasees `yaml:"Helmv3tpl,omitempty"`
+			Helmv3tpl *map[string]map[string]Releasees `yaml:"helmv3tpl,omitempty"`
 			Coredns string `yaml:"coredns,omitempty"`
 			Global /**/ `yaml:"global,omitempty"`
 }
 type Releasees struct {
 			Rle *[]map[string]any `yaml:"_role,omitempty"`
-			RoleBindingpls *[]map[string]any `yaml:"_roleBinding+,omitempty"`
+			RoleBindingspls *[]map[string]any `yaml:"_roleBinding+,omitempty"`
 			_ *[]map[string]any `yaml:"_,omitempty"`
 			Cjpls *[]map[string]any `yaml:"cj+,omitempty"`
 			ClusterRole *[]map[string]any `yaml:"clusterRole,omitempty"`
@@ -44,7 +44,7 @@ type Releasees struct {
 			Servers string `yaml:"servers,omitempty"`
 			Paths string `yaml:"paths,omitempty"`
 			Drivers string `yaml:"drivers,omitempty"`
-			MntOpts *[]string `yaml:"mntOpts,omitempty"`
+			MntOpts *[]string `yaml:"mntOption,omitempty"`
 	} `yaml:"pv+,omitempty"`
 	Pvc *[]struct {
 			AccMode string `yaml:"accMode,omitempty"`
@@ -52,7 +52,7 @@ type Releasees struct {
 			StgSize string `yaml:"stgSize,omitempty"`
 	} `yaml:"pvc,omitempty"`
 	Sapls *[]struct {
-			Annotaions map[string]string `yaml:"annotations,omitempty"`
+			Annotations map[string]string `yaml:"annotations,omitempty"`
 	} `yaml:"sa+,omitempty"`
 	Sepls *[]struct {
 			Ip string `yaml:"ip,omitempty"`
@@ -66,14 +66,14 @@ type Releasees struct {
 	Secretpls *[]struct {
 		Data struct {
 			Crt string `yaml:"tls.crt,omitempty"`
-			Cacerts	 string `yaml:"cacerts.pem,omitempty"`
+			Cacerts string `yaml:"cacerts.pem,omitempty"`
 			Key string `yaml:"tls.key,omitempty"`
 		} `yaml:"data,omitempty"`
 			Files string `yaml:"files,omitempty"`
 			// * `yaml:"*,omitempty"`
 	} `yaml:"secret+,omitempty"`
 	StorageClasspls *[]struct {
-		Annotaions struct {
+		Annotations struct {
 			DefaultsStg bool `yaml:"storageclass.kubernetes.io/is-default-class,omitempty"` //onlyOne
 		} `yaml:"annotations,omitempty"`
 	} `yaml:"storageClass+,omitempty"`

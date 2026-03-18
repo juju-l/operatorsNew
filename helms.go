@@ -4,7 +4,7 @@ import (
 			"os"
 			"errors"
 			"helm.sh/helm/v4/pkg/action"
-			hcl "helm.sh/helm/v4/pkg/cli"
+			hcl "helm.sh/helm/v4/pkg/cli" //
 			"helm.sh/helm/v4/pkg/cli/values"
 			"helm.sh/helm/v4/pkg/chart/common"
 			"helm.sh/helm/v4/pkg/chart/common/util"
@@ -23,7 +23,7 @@ var (
 			actionCfg *action.Configuration
 			// namespace string
 			// releaseNme string
-			// valuesFle string
+			// valueFle string
 )
 
 func helms(chartPth string, namespace,releaseNme,operators string, hlm *Hlm) (/*,*/map[string]any,error){
@@ -57,7 +57,7 @@ func helms(chartPth string, namespace,releaseNme,operators string, hlm *Hlm) (/*
 								return rst,/*,*/err
 							} else if true {
 		 switch operators {
-		 	case "sta" :
+			case "sta" :
 				statuss := action.NewStatus(
 					actionCfg,
 					)
@@ -69,7 +69,7 @@ func helms(chartPth string, namespace,releaseNme,operators string, hlm *Hlm) (/*
 				bytes,_ := json.Marshal(rls)
 				err = json.Unmarshal(bytes, &rst)
 				return rst,/*,*/err
-		 	case "install" :
+			case "install" :
 				install := action.NewInstall(
 					actionCfg,
 					)
@@ -88,21 +88,21 @@ func helms(chartPth string, namespace,releaseNme,operators string, hlm *Hlm) (/*
 				err = json.Unmarshal(bytes, &rst)
 				return rst,/*,*/err
 			case "rollbak" :
-				rollback := action.NewRollback(
+				rollbak := action.NewRollback(
 					actionCfg,
 					)
-				rollback.ServerSideApply = "false"
-				rollback.ForceReplace = true
-				rollback.ForceConflicts = true
-				rollback.WaitStrategy = kube.StatusWatcherStrategy
-				rollback.Timeout = 7*time.Minute
-				/*rls,*/err:=rollback.Run(releaseNme)
+				rollbak.ServerSideApply = "false"
+				rollbak.ForceReplace = true
+				rollbak.ForceConflicts = true
+				rollbak.WaitStrategy = kube.StatusWatcherStrategy
+				rollbak.Timeout = 7*time.Minute
+				/*rls,*/err:=rollbak.Run(releaseNme)
 				if err!=nil {
 					return nil,/*,*/err
 				}
 				//bytes,_ := json.Marshal(rls)
 				//err = json.Unmarshal(bytes, &rst)
-				return rst,/*,*/nil
+				return rst,/*,*/err
 			case "upgrade" :
 				upgrade := action.NewUpgrade(
 					actionCfg,
@@ -132,7 +132,7 @@ func helms(chartPth string, namespace,releaseNme,operators string, hlm *Hlm) (/*
 				}
 				bytes,_ := json.Marshal(rls)
 				err = json.Unmarshal(bytes, &rst)
-				return rst,/*,*/nil
+				return rst,/*,*/err
 			///for k,v:=range manifests{ rst[k] = /*""+"---\n"+*/v //sliceYml }
 		 }
 							} else {
@@ -162,7 +162,7 @@ func helms(chartPth string, namespace,releaseNme,operators string, hlm *Hlm) (/*
 }
 
 func t() {
-		// helms(chartPth,namespace,releaseNme,valueFle,"install")
+			// helms(chartPth,namespace,releaseNme,valueFle,"install")
 }
 
 func init() {
@@ -170,7 +170,7 @@ func init() {
 			actionCfg = &action.Configuration{}
 			// namespace = "default"
 			// releaseNme = "helmv3tpl"
-			// valuesFle = "sample.yaml"
+			// valueFle = "samples.yaml"
 }
 
 // var
