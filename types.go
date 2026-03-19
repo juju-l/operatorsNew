@@ -3,105 +3,105 @@ package main
 //import "time"
 ///
 type HlmSpec struct {
-			Env string `yaml:"env,omitempty"`
-			StsSingle bool `yaml:"stsSingle,omitempty"`
-			Application string `yaml:"application,omitempty"`
-			Cloudns string `yaml:"cloudns,omitempty"`
-			Helmv3tpl *map[string]map[string]Releasees `yaml:"helmv3tpl,omitempty"`
-			Coredns string `yaml:"coredns,omitempty"`
-			Global /**/ `yaml:"global,omitempty"`
+			Env string `json:"env,omitempty"`
+			StsSingle bool `json:"stsSingle,omitempty"`
+			Application string `json:"application,omitempty"`
+			Cloudns string `json:"cloudns,omitempty"`
+			Helmv3tpl *map[string]map[string]Releasees `json:"helmv3tpl,omitempty"`
+			Coredns string `json:"coredns,omitempty"`/**/
+			Global Global `json:"global,omitempty"`
 }
 type Releasees struct {
-			Rle *[]map[string]any `yaml:"_role,omitempty"`
-			RoleBindingspls *[]map[string]any `yaml:"_roleBinding+,omitempty"`
-			_ *[]map[string]any `yaml:"_,omitempty"`
-			Cjpls *[]map[string]any `yaml:"cj+,omitempty"`
-			ClusterRole *[]map[string]any `yaml:"clusterRole,omitempty"`
-			ClusterroleBindingpls *[]map[string]any `yaml:"clusterroleBinding+,omitempty"`
+			Rle *[]map[string]any `json:"_role,omitempty"`
+			RoleBindingspls *[]map[string]any `json:"_roleBinding+,omitempty"`
+			_ *[]map[string]any `json:"_,omitempty"`
+			Cjpls *[]map[string]any `json:"cj+,omitempty"`
+			ClusterRole *[]map[string]any `json:"clusterRole,omitempty"`
+			ClusterroleBindingpls *[]map[string]any `json:"clusterroleBinding+,omitempty"`
 	Cmpls *[]struct {
-			Files string `yaml:"files,omitempty"`
-	} `yaml:"cm+,omitempty"`
-			Crd *[]map[string]any `yaml:"crd,omitempty"`
-			Deploypls *[]map[string]any `yaml:"deploy+,omitempty"`
-			Drpls *[]map[string]any `yaml:"dr+,omitempty"`
+			Files string `json:"files,omitempty"`
+	} `json:"cm+,omitempty"`
+			Crd *[]map[string]any `json:"crd,omitempty"`
+			Deploypls *[]map[string]any `json:"deploy+,omitempty"`
+			Drpls *[]map[string]any `json:"dr+,omitempty"`
 	Gwpls *[]struct {
-			Hosts string `yaml:"hosts,omitempty"`
+			Hosts string `json:"hosts,omitempty"`
 		Vps *[]struct {
-			Ptc string `yaml:"ptc,omitempty"`
-			Number string `yaml:"number,omitempty"`
-			Name string `yaml:"name,omitempty"`
-		} `yaml:"vps,omitempty"`
-			CredentialName string `yaml:"credentialName,omitempty"`
-	} `yaml:"gw+,omitempty"`
+			Ptc string `json:"ptc,omitempty"`
+			Number int32 `json:"number,omitempty"`
+			Name string `json:"name,omitempty"`
+		} `json:"vps,omitempty"`
+			CredentialName string `json:"credentialName,omitempty"`
+	} `json:"gw+,omitempty"`
 	Hpa *[]struct {
-			Max int32 `yaml:"max,omitempty"`
-	} `yaml:"hpa,omitempty"`
-			Nspls *[]map[string]any `yaml:"ns+,omitempty"`
+			Max int32 `json:"max,omitempty"`
+	} `json:"hpa,omitempty"`
+			Nspls *[]map[string]any `json:"ns+,omitempty"`
 	Pvpls *[]struct {
-			StgSize string `yaml:"stgSize,omitempty"`
-			AccMode string `yaml:"accMode,omitempty"`
-			VolHandle string `yaml:"volHandle,omitempty"`
-			Servers string `yaml:"servers,omitempty"`
-			Paths string `yaml:"paths,omitempty"`
-			Drivers string `yaml:"drivers,omitempty"`
-			MntOpts *[]string `yaml:"mntOption,omitempty"`
-	} `yaml:"pv+,omitempty"`
+			StgSize string `json:"stgSize,omitempty"`
+			AccMode string `json:"accMode,omitempty"`
+			VolHandle string `json:"volHandle,omitempty"`
+			Servers string `json:"servers,omitempty"`
+			Paths string `json:"paths,omitempty"`
+			Drivers string `json:"drivers,omitempty"`
+			MntOpts *[]string `json:"mntOption,omitempty"`
+	} `json:"pv+,omitempty"`
 	Pvc *[]struct {
-			AccMode string `yaml:"accMode,omitempty"`
-			VolumeName string `yaml:"volumeName,omitempty"`
-			StgSize string `yaml:"stgSize,omitempty"`
-	} `yaml:"pvc,omitempty"`
+			AccMode string `json:"accMode,omitempty"`
+			VolumeName string `json:"volumeName,omitempty"`
+			StgSize string `json:"stgSize,omitempty"`
+	} `json:"pvc,omitempty"`
 	Sapls *[]struct {
-			Annotations map[string]string `yaml:"annotations,omitempty"`
-	} `yaml:"sa+,omitempty"`
+			Annotations map[string]string `json:"annotations,omitempty"`
+	} `json:"sa+,omitempty"`
 	Sepls *[]struct {
-			Ip string `yaml:"ip,omitempty"`
+			Ip string `json:"ip,omitempty"`
 		Vps *[]struct {
-			Ptc string `yaml:"ptc,omitempty"`
-			Number string `yaml:"number,omitempty"`
-			Name string `yaml:"name,omitempty"`
-		} `yaml:"vps,omitempty"`
-			Is bool `yaml:"is,omitempty"`
-	} `yaml:"se+,omitempty"`
+			Ptc string `json:"ptc,omitempty"`
+			Number int32 `json:"number,omitempty"`
+			Name string `json:"name,omitempty"`
+		} `json:"vps,omitempty"`
+			Is bool `json:"is,omitempty"`
+	} `json:"se+,omitempty"`
 	Secretpls *[]struct {
 		Data struct {
-			Crt string `yaml:"tls.crt,omitempty"`
-			Cacerts string `yaml:"cacerts.pem,omitempty"`
-			Key string `yaml:"tls.key,omitempty"`
-		} `yaml:"data,omitempty"`
-			Files string `yaml:"files,omitempty"`
-			// * `yaml:"*,omitempty"`
-	} `yaml:"secret+,omitempty"`
+			Crt string `json:"tls.crt,omitempty"`
+			Cacerts string `json:"cacerts.pem,omitempty"`
+			Key string `json:"tls.key,omitempty"`
+		} `json:"data,omitempty"`
+			Files string `json:"files,omitempty"`
+			// * `json:"*,omitempty"`
+	} `json:"secret+,omitempty"`
 	StorageClasspls *[]struct {
 		Annotations struct {
-			DefaultsStg bool `yaml:"storageclass.kubernetes.io/is-default-class,omitempty"` //onlyOne
-		} `yaml:"annotations,omitempty"`
-	} `yaml:"storageClass+,omitempty"`
+			DefaultsStg bool `json:"storageclass.kubernetes.io/is-default-class,omitempty"` //onlyOne
+		} `json:"annotations,omitempty"`
+	} `json:"storageClass+,omitempty"`
 	Svc *[]struct {
-			ClusterIP string `yaml:"clusterIP,omitempty"`
+			ClusterIP string `json:"clusterIP,omitempty"`
 		Vps *[]struct {
-			Ptc string `yaml:"ptc,omitempty"`
-			S string `yaml:"s,omitempty"`
-			Number string `yaml:"number,omitempty"`
-			T string `yaml:"t,omitempty"`
-			Name string `yaml:"name,omitempty"`
-		} `yaml:"vps,omitempty"`
-			ExternalIPs *[]map[string]any `yaml:"externalIPs,omitempty"`
-	} `yaml:"svc,omitempty"`
+			Ptc string `json:"ptc,omitempty"`
+			S int32 `json:"s,omitempty"`
+			Number int32 `json:"number,omitempty"`
+			T int32 `json:"t,omitempty"`
+			Name string `json:"name,omitempty"`
+		} `json:"vps,omitempty"`
+			ExternalIPs *[]map[string]any `json:"externalIPs,omitempty"`
+	} `json:"svc,omitempty"`
 	Vspls *[]struct {
 		Vps *[]struct {
-			Ptc string `yaml:"ptc,omitempty"`
-			S string `yaml:"s,omitempty"`
-			Number string `yaml:"number,omitempty"`
-			T string `yaml:"t,omitempty"`
-			Name string `yaml:"name,omitempty"`
-		} `yaml:"vps,omitempty"`
-	} `yaml:"vs+,omitempty"`
+			Ptc string `json:"ptc,omitempty"`
+			S int32 `json:"s,omitempty"`
+			Number int32 `json:"number,omitempty"`
+			T int32 `json:"t,omitempty"`
+			Name string `json:"name,omitempty"`
+		} `json:"vps,omitempty"`
+	} `json:"vs+,omitempty"`
 }
 type Global struct {
-			Reg string `yaml:"reg,omitempty"`
-			Label *map[string]string `yaml:"label,omitempty"`
-			Tag string `yaml:"tag,omitempty"`
+			Reg string `json:"reg,omitempty"`
+			Label *map[string]string `json:"label,omitempty"`
+			Tag string `json:"tag,omitempty"`
 }
 
 func init() {

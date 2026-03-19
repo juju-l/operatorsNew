@@ -23,7 +23,7 @@ spec:
             #nspaces: *unknown
             spec: &unknown
               type: object
-              x-kubernetes-preserve-unknown-fields: true #unknown
+              x-kubernetes-preserve-unknown-fields: true # unknown #
               #--
             status: *unknown
           #--
