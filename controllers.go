@@ -73,12 +73,12 @@ func (ctl *HlmController)runWorker() {
 }
 
 func (ctl *HlmController)upsStatus(
-			sta any,
+			nam string,sta any,nspacs string,
 	) error {
 	var err error
 			_, err = ctl.
 			cli.
-			Resource(gvr).Namespace(n).Patch(
+			Resource(gvr).Namespace(nspacs).Patch(
 			ctl.ctx,
 			n,
 			types.MergePatchType,
@@ -98,19 +98,19 @@ func (ctl *HlmController)reconcile(
 	var sta = struct { Phase string
 			Message string
 			Sig string }{
-			sta.Phase: "Running"
+			Phase: "Running",
 			}
 			s,n,e := cache.SplitMetaNamespaceKey(key)
 			if e != nil {
 			return e
 			}
-			_,e = helms(
-			"tpl_vipex_cc-0.1.0.tgz",s,n,"sta",hlm,
-			)
-			act := vtrue[string](
-			e==nil,"upgrade","install",
-			)
 			o,i,e := ctl.inf.GetIndexer().GetByKey(key)
+			if e != nil {
+			return e
+			}
+			hlm := &Hlm{} //o.(*Hlm)
+			b,_ := json.Marshal(o)
+			e := json.Unmarshal(b, hlm /**/)
 			if e != nil {
 			return e
 			}
@@ -121,12 +121,12 @@ func (ctl *HlmController)reconcile(
 			//clean resource obj
 			return nil
 			}
-			hlm := &Hlm{} //o.(*Hlm)
-			b,_ := json.Marshal(o)
-			e := json.Unmarshal(b, hlm /**/)
-			if e != nil {
-			return e
-			}
+			_,e = helms(
+			"tpl_vipex_cc-0.1.0.tgz",s,n,"sta",hlm,
+			)
+			act := vtrue[string](
+			e==nil,"upgrade","install",
+			)
 			_,e = helms(
 			"tpl_vipex_cc-0.1.0.tgz",s,n,act,hlm,
 			)
@@ -135,7 +135,7 @@ func (ctl *HlmController)reconcile(
 			sta.Message = err.Error()
 			sta.Sig = ""
 			}
-			_, e = ctl.upsStatus(sta)
+			_, e = ctl.upsStatus(n,sta,s)
 			if e != nil {
 			return e
 			}
