@@ -80,7 +80,7 @@ func (ctl *HlmController)upsStatus(
 			cli.
 			Resource(gvr).Namespace(nspacs).Patch(
 			ctl.ctx,
-			n,
+			nspacs,
 			types.MergePatchType,
 			[]byte(`{"status":`+
 			string(vmust[[]byte](json.Marshal(sta)))+
@@ -104,38 +104,44 @@ func (ctl *HlmController)reconcile(
 			if e != nil {
 			return e
 			}
-			o,i,e := ctl.inf.GetIndexer().GetByKey(key)
-			if e != nil {
-			return e
-			}
-			hlm := &Hlm{} //o.(*Hlm)
-			b,_ := json.Marshal(o)
-			e := json.Unmarshal(b, hlm /**/)
-			if e != nil {
-			return e
-			}
-			if ! i {
 			_,e = helms(
-			"tpl_vipex_cc-0.1.0.tgz",s,n,"rmv",hlm,
-			)//uninstall
-			//clean resource obj
-			return nil
-			}
-			_,e = helms(
-			"tpl_vipex_cc-0.1.0.tgz",s,n,"sta",hlm,
+			"tpl_vipex_cc-0.1.0.tgz",
+			s,n,"sta",
+			&Hlm{},
 			)
 			act := vtrue[string](
 			e==nil,"upgrade","install",
 			)
+			o,i,e := ctl.inf.GetIndexer().GetByKey(key)
+			if e != nil {
+			return e
+			}
+			if ! i {
+			_,/*e*/_ = helms(
+			"tpl_vipex_cc-0.1.0.tgz",
+			s,n,"rmv",
+			&Hlm{},
+			)//uninstall
+			//clean resource obj
+			return nil
+			}
+			hlm := &Hlm{} //o.(*Hlm)
+			b,_ := json.Marshal(o)
+			e = json.Unmarshal(b, hlm /**/)
+			if e != nil {
+			return e
+			}
 			_,e = helms(
-			"tpl_vipex_cc-0.1.0.tgz",s,n,act,hlm,
+			"tpl_vipex_cc-0.1.0.tgz",
+			s,n,act,
+			hlm,
 			)
 			if e != nil {
 			sta.Phase = "Failed"
-			sta.Message = err.Error()
+			sta.Message = e.Error()
 			sta.Sig = ""
 			}
-			_, e = ctl.upsStatus(n,sta,s)
+			e = ctl.upsStatus(n,sta,s)
 			if e != nil {
 			return e
 			}
