@@ -95,11 +95,11 @@ func (ctl *HlmController)upsStatus(
 func (ctl *HlmController)reconcile(
 			key string,
 	) error {
-	var sta = struct { Phase string
-			Message string
-			Sig string }{
-			Phase: "Running",
-			}
+	// var sta = struct { Phase string
+	// 		Message string
+	// 		Sig string }{
+	// 		Phase: "Running",
+	// 		}
 			s,n,e := cache.SplitMetaNamespaceKey(key)
 			if e != nil {
 			return e
@@ -137,9 +137,9 @@ func (ctl *HlmController)reconcile(
 			hlm,
 			)
 			if e != nil {
-			sta.Phase = "Failed"
-			sta.Message = e.Error()
-			sta.Sig = ""
+			hlm.Status.Phase = "Failed"
+			hlm.Status.Message = e.Error()
+			hlm.Status.Sig = ""
 			}
 			e = ctl.upsStatus(n,sta,s)
 			if e != nil {
