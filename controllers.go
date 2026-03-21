@@ -80,7 +80,7 @@ func (ctl *HlmController)upsStatus(
 			cli.
 			Resource(gvr).Namespace(nspacs).Patch(
 			ctl.ctx,
-			nspacs,
+			nam,
 			types.MergePatchType,
 			[]byte(`{"status":`+
 			string(vmust[[]byte](json.Marshal(sta)))+
