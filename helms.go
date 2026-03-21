@@ -154,15 +154,18 @@ func helms(chartPth string, namespace,releaseNme,operators string, hlm *Hlm) (/*
 			return rst,/*,*/nil
 	}
 	//
-	///
-	return rst,/*,*/nil
+	//
+	//
+					//
+					///
+					return rst,/*,*/nil
 			} else {
 					return nil,/*,*/nil
 			}
 }
 
 func t() {
-			// helms(chartPth,namespace,releaseNme,valueFle,"install")
+			// helms(chartPth,namespace,releaseNme,valueFle,"install") //
 }
 
 func init() {

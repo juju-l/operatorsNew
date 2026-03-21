@@ -27,7 +27,8 @@ func main() {
 			LeaseMeta: metasv1.ObjectMeta{
 			Name: "hlm-operators-lck",
 			Annotations: map[string]string{},
-			Namespace: "default"},
+			Namespace: "default",
+			},
 			Client: kubeCli.CoordinationV1(),
 			LockConfig: resourcelock.ResourceLockConfig{
 			Identity: os.Getenv("POD_NAME"),
@@ -62,3 +63,7 @@ func main() {
 			<-ctx.Done()
 			cancel()
 }
+
+// type
+
+// var

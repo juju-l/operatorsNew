@@ -11,7 +11,7 @@ import (
 			"k8s.io/client-go/tools/cache"
 			"k8s.io/client-go/tools/clientcmd"
 			"k8s.io/client-go/util/workqueue"
-			"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+			"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"//
 			"k8s.io/apimachinery/pkg/types"
 			metasv1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 			"time"
@@ -264,4 +264,8 @@ func vmust[T any] (
 			//
 			if err != nil { panic(err) }
 			return v
+}
+
+func init() {
+	//
 }
