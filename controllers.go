@@ -139,7 +139,7 @@ func (ctl *HlmController)reconcile(
 			if e != nil {
 			hlm.Status.Phase = "Failed"
 			hlm.Status.Message = e.Error()
-			hlm.Status.Sig = ""
+			hlm.Status.Sig = "sha"
 			}
 			e = ctl.upsStatus(n,sta,s)
 			if e != nil {
