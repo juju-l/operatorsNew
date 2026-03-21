@@ -21,7 +21,7 @@ func main() {
 			//discoverysCli := discovery.NewDiscoveryClientForConfigOrDie( cfg )
 			//dyCli := dynamic.NewForConfigOrDie( cfg )
 
-			//factory := dynamicinformer.NewDynamicSharedInformerFactory(/**/ dyCli, 0)
+			///factory := dynamicinformer.NewDynamicSharedInformerFactory(/**/ dyCli, 0)
 
 			ldLck := &resourcelock.LeaseLock{
 			LeaseMeta: metasv1.ObjectMeta{

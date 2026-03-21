@@ -15,7 +15,7 @@ type Hlm struct {
 			metasv1.TypeMeta `json:",inline"`
 			metasv1.ObjectMeta `json:"metadata,omitempty"`
 			Spec *HlmSpec `json:"spec,omitempty"`
-			Status struct { Phase string `json:"phase,omitempty"`; Message string `json:"message,omitempty"`; Sig string `json:"sig"`/*,omitempty"`*/ } `json:"status,omitempty"`
+			Status struct { Phase string `json:"phase,omitempty"`; Message string `json:"message,omitempty"`; Sig string `json:"sig,omitempty"` } `json:"status,omitempty"`
 			Ver string `json:"ver,omitempty"`
 }
 func (s *Hlm) DeepCopyObject() runtime.Object {

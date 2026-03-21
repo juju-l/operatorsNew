@@ -87,7 +87,7 @@ func (ctl *HlmController)upsStatus(
 			`}`),
 			metasv1.PatchOptions{},
 			"status",
-			// //.
+			//*
 			)
 	return err
 }
