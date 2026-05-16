@@ -11,7 +11,9 @@ import (
 			"k8s.io/client-go/tools/cache"
 			"k8s.io/client-go/tools/clientcmd"
 			"k8s.io/client-go/util/workqueue"
-			"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+			"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"//
+			"k8s.io/apimachinery/pkg/types"
+			metasv1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 			"time"
 			"os"
 )
@@ -45,13 +47,11 @@ func (ctl *HlmController)runWorker() {
 			o, dwn := ctl.que.Get()
 			if dwn { break }
 			defer ctl.que.Done(o) /**/
-
 			k, ok := o.(string)
 			if !ok {
 			/**/ctl.que.Forget(o);continue
 			}
 			//
-
 			l, _ := ctl.
 			objLock.
 			LoadOrStore(
@@ -63,39 +63,93 @@ func (ctl *HlmController)runWorker() {
 			l.(*sync.Mutex).Unlock()
 			ctl.objLock.Delete(k)
 			}()
-
 			if err := ctl.reconcile(k); err != nil {
 			ctl.que.AddRateLimited(k)
 			} else {
 			ctl.que.Forget(o)
 			}
-			
 			continue
 	}
+}
+
+func (ctl *HlmController)upsStatus(
+			nam string,sta any,nspacs string,
+	) error {
+	var err error
+			_, err = ctl.
+			cli.
+			Resource(gvr).Namespace(nspacs).Patch(
+			ctl.ctx,
+			nam,
+			types.MergePatchType,
+			[]byte(`{"status":`+
+			string(vmust[[]byte](json.Marshal(sta)))+
+			`}`),
+			metasv1.PatchOptions{},
+			"status",
+			//*
+			)
+	return err
 }
 
 func (ctl *HlmController)reconcile(
 			key string,
 	) error {
-	var err error
+	// var sta = struct { Phase string
+	// 		Message string
+	// 		Sig string }{
+	// 		Phase: "Running",
+	// 		}
 			s,n,e := cache.SplitMetaNamespaceKey(key)
 			if e != nil {
 			return e
 			}
+			_,e = helms(
+			"tpl_vipex_cc-0.1.0.tgz",
+			s,n,"sta",
+			&Hlm{},
+			)
+			act := vtrue[string](
+			e==nil,"upgrade","install",
+			)
 			o,i,e := ctl.inf.GetIndexer().GetByKey(key)
 			if e != nil {
 			return e
 			}
 			if ! i {
+			_,/*e*/_ = helms(
+			"tpl_vipex_cc-0.1.0.tgz",
+			s,n,"rmv",
+			&Hlm{},
+			)//uninstall
+			//clean resource obj
 			return nil
 			}
 			hlm := &Hlm{} //o.(*Hlm)
 			b,_ := json.Marshal(o)
-			err = json.Unmarshal(b, hlm /**/)
-			helms(
-			"tpl_vipex_cc-0.1.0.tgz",n,s,"sta",hlm,
+			e = json.Unmarshal(b, hlm /**/)
+			if e != nil {
+			return e
+			}
+			_,e = helms(
+			"tpl_vipex_cc-0.1.0.tgz",
+			s,n,act,
+			hlm,
 			)
-	return err
+			if e != nil {
+			hlm.Status.Phase = "Failed"
+			hlm.Status.Message = e.Error()
+			hlm.Status.Sig = "sha"
+			}
+			//
+			//
+			//
+			//
+			e = ctl.upsStatus(n,hlm.Status,s)
+			if e != nil {
+			return e
+			}
+	return nil
 }
 
 func hdl (
@@ -214,4 +268,8 @@ func vmust[T any] (
 			//
 			if err != nil { panic(err) }
 			return v
+}
+
+func init() {
+	//
 }

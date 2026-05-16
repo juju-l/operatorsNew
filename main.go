@@ -21,13 +21,14 @@ func main() {
 			//discoverysCli := discovery.NewDiscoveryClientForConfigOrDie( cfg )
 			//dyCli := dynamic.NewForConfigOrDie( cfg )
 
-			//factory := dynamicinformer.NewDynamicSharedInformerFactory(/**/ dyCli, 0)
+			///factory := dynamicinformer.NewDynamicSharedInformerFactory(/**/ dyCli, 0)-|-|-|-|-|-|-|-|-|-|-
 
 			ldLck := &resourcelock.LeaseLock{
 			LeaseMeta: metasv1.ObjectMeta{
 			Name: "hlm-operators-lck",
 			Annotations: map[string]string{},
-			Namespace: "default"},
+			Namespace: "default",
+			},
 			Client: kubeCli.CoordinationV1(),
 			LockConfig: resourcelock.ResourceLockConfig{
 			Identity: os.Getenv("POD_NAME"),
@@ -56,9 +57,17 @@ func main() {
 			//panic(err)
 			//}
 
+			//
+			///
 			leaderelection.RunOrDie(ctx, ldCfg /**/)
+			///
+			//
 
 			//<-sigCh
 			<-ctx.Done()
 			cancel()
 }
+
+// type
+
+// var
